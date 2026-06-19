@@ -1,0 +1,77 @@
+<%- include("../partials/header.ejs") %>
+
+<body style="background-color: #f8fafb;">
+
+  <%- include("../partials/navbar.ejs") %>
+
+  <main class="
+     align-items-center justify-content-center py-5" style="min-height: calc(100vh - 90px);">
+
+    <div class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <p class="mb-2" style=" color: #21708c;font-weight: 700;letter-spacing: 1px;text-transform: uppercase;font-size: 14px;">
+            Feria Provincial
+          </p>
+          <h1 class="display-5 fw-bold mb-0">
+            <%= titulo %>
+          </h1>
+        </div>
+        <a href="/proyectos/nuevo" class="btn px-4 py-2" style=" background-color: #21708c;color: white; font-weight: 700;border-radius: 12px;">
+          Agregar proyecto
+        </a>
+      </div>
+      <div class="row g-4">
+        <% proyecto.forEach(pr => { %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 overflow-hidden" style=" border-radius: 20px; transition: 0.2s ease; ">
+            <div style=" height: 6px;background-color: #21708c;">
+            </div>
+            <div class="position-relative">
+              <% if(pr.imagenes && pr.imagenes.length > 0){ %>
+
+              <img src="/img/proyectos/<%= pr.imagenes[0].filename %>" alt="Proyecto" class="img-fluid w-100" style="height: 220px; object-fit: cover;">
+
+              <% } else { %>
+
+              <div class="d-flex justify-content-center align-items-center" style="
+                  height: 220px;
+                  background-color: #eef2f4;
+                ">
+                <p class="mb-0" style="
+                    color: #6c757d;
+                    font-weight: 600;
+                  ">
+                  Sin imágenes para mostrar
+                </p>
+              </div>
+
+              <% } %>
+              <a href="/categorias/<%= pr.categoria.id %>" class="position-absolute text-decoration-none px-3 py-2 rounded-pill" style=" bottom: 15px; left: 15px; background-color: #FF682C;  color: white; font-size: 12px; font-weight: 700; backdrop-filter: blur(4px); ">
+                <%= pr.categoria.nombre %>
+              </a>
+            </div>
+            <div class="card-body d-flex flex-column p-4">
+              <h5 class="card-title mb-3" style="font-size: 24px; font-weight: 800;line-height: 1.2; ">
+                <a href="/proyectos/<%= pr.id %>" class="text-decoration-none text-dark">
+                  <%= pr.titulo %>
+                </a>
+              </h5>
+              <p class="card-text mb-4" style="color: #5c6770;line-height: 1.6; ">
+                <%= pr.descripcion %>
+              </p>
+              <div class="mt-auto">
+                <p class="mb-4" style=" color: #6c757d; font-size: 14px; ">
+                  Escuela N.º <strong><%= pr.escuela.padron %></strong>
+                </p>
+                <a href="/proyectos/<%= pr.id %>" class="btn w-100" style="background-color: #21708c;  color: white; font-weight: 700; border-radius: 12px;padding: 12px; ">
+                  Ver proyecto
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <%- include("../partials/footer.ejs") %>

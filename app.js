@@ -1,41 +1,67 @@
+const path = require("path");
 //importamos express
+require("dotenv").config();
+const db = require("./database/models");
 
-const express = require('express'); 
-
+const express = require("express");
+// const cors = require("cors")
+const session = require("express-session");
+const setSessionLocals = require("./middlewares/sessionLocals")
 //guardamos express
 const app = express();
 
-const PORT = 3000; 
+app.use(express.json());
 
-let contador = 0;
-
-app.get("/", (req, res)=>{
-    res.send("<h1>hola </h1>")
-})
-
-app.get("/about", (req, res)=>{
-    res.send("<h1>Soy Aye Jaramillo </h1>")
-})
-
-app.get("/contact", (req, res)=>{
-    res.send("<p>ayelenjaramillotwgmail.com </p>")
-})
-
-app.get("/date", (req, res)=>{
-    const date = new Date().toLocaleDateString('es-AR')
-    console.log(date)
-
-    res.send(`<p> la fecha de hoy es: ${date}  </p>`)
-})
-
-app.get("/contador", (req, res)=>{
- 
-     contador =  contador + 1; 
-
-    res.send(`<p> las visitas son: ${contador}</p>`)
-})
+const PORT = 3000;
+const proyectoRouter = require("./routes/proyectoRoutes");
+const homeController = require("./controllers/homeController");
+const homeRouter = require("./routes/homeRoutes");
+const escuelaRouter = require("./routes/escuelaRoutes");
+const regionRouter = require("./routes/regionRoutes");
+const categoriaRouter = require("./routes/categoriaRoute");
+const authRouter = require("./routes/authRoute");
+const adminRouter = require("./routes/adminRoutes")
 
 
-app.listen(PORT, ()=>{
-    console.log('servidor corriendo en http://localhost:3000')
-})
+const { METHODS } = require("http");
+
+app.set("view engine", "ejs");
+
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+app.use(setSessionLocals); 
+
+app.use("/", homeRouter);
+app.use("/proyectos", proyectoRouter);
+app.use("/escuelas", escuelaRouter);
+app.use("/regiones", regionRouter);
+app.use("/categorias", categoriaRouter);
+app.use("/", authRouter);
+app.use("/admin", adminRouter)
+
+app.use(homeController.notFound);
+
+
+
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Coneccion en mysql exitosa");
+    app.listen(PORT, () => {
+      console.log("[clase08]servidor corriendo en http://localhost:3000");
+    });
+  })
+  .catch((error) => {
+    console.error("error de conexion a Mysql:", error.message);
+  });

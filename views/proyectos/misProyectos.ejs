@@ -1,0 +1,164 @@
+<%- include("../partials/header.ejs") %>
+
+<body style="background-color: #f8fafb;">
+
+  <%- include("../partials/navbar.ejs") %>
+
+  <div class="container py-5">
+
+    <div class="text-center mb-5">
+
+      <p class="mb-2" style="
+        color: #21708c;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 14px;
+      ">
+        Mis proyectos
+      </p>
+
+      <h1 class="fw-bold" style="
+        font-size: clamp(2.8rem, 5vw, 4rem);
+      ">
+        Proyectos enviados
+      </h1>
+
+      <p class="mt-3" style="
+        color: #5f6b73;
+        font-size: 1.05rem;
+      ">
+        Consultá el estado de tus proyectos y realizá modificaciones.
+      </p>
+
+    </div>
+
+    <% if(proyectos.length > 0){ %>
+
+    <div class="table-responsive" style="
+      background-color: white;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    ">
+
+      <table class="table table-hover align-middle mb-0">
+
+        <thead>
+
+          <tr style="
+            background-color: #21708c;
+            color: white;
+          ">
+            <th class="ps-4 py-4">Título</th>
+            <th>Categoría</th>
+            <th>Escuela</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% proyectos.forEach(proyecto => { %>
+
+          <tr>
+
+            <td class="fw-semibold ps-4">
+              <%= proyecto.titulo %>
+            </td>
+
+            <td>
+              <%= proyecto.categoria.nombre %>
+            </td>
+
+            <td>
+              <%= proyecto.escuela.nombre %>
+            </td>
+
+            <td>
+
+              <% if (proyecto.estado === "aprobado") { %>
+
+              <span class="badge bg-success">
+                Aprobado
+              </span>
+
+              <% } else if (proyecto.estado === "rechazado") { %>
+
+              <span class="badge bg-danger">
+                Rechazado
+              </span>
+
+              <% } else { %>
+
+              <span class="badge bg-warning text-dark">
+                Pendiente
+              </span>
+
+              <% } %>
+
+            </td>
+
+            <td>
+              <%= proyecto.createdAt.toLocaleDateString("es-AR") %>
+            </td>
+
+            <td>
+
+              <div class="d-flex gap-2">
+
+                <a href="/proyectos/<%= proyecto.id %>" class="btn btn-sm" style="
+                  background-color: #21708c;
+                  color: white;
+                  border-radius: 10px;
+                ">
+                  Ver
+                </a>
+
+                <a href="/proyectos/<%= proyecto.id %>/editar" class="btn btn-sm btn-outline-secondary" style="
+                  border-radius: 10px;
+                ">
+                  Editar
+                </a>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <% } else { %>
+
+    <div class="d-flex align-items-center justify-content-center" style="
+      min-height: 220px;
+      background-color: white;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+    ">
+
+      <p class="mb-0" style="
+        color: #5f6b73;
+        font-size: 1.1rem;
+        font-weight: 600;
+      ">
+        Todavía no enviaste ningún proyecto.
+      </p>
+
+    </div>
+
+    <% } %>
+
+  </div>
+
+  <%- include("../partials/footer.ejs") %>

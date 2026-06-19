@@ -1,0 +1,129 @@
+<%- include("../partials/header.ejs") %>
+
+<body style="background-color: #f8fafb;">
+
+<%- include("../partials/navbar.ejs") %>
+
+<main 
+    class="d-flex align-items-center justify-content-center py-5"
+    style="min-height: calc(100vh - 90px);"
+>
+
+  <div class="container py-5">
+
+    <div class="row justify-content-center">
+
+      <div class="col-md-8 col-lg-6">
+
+        <div class="card shadow-sm border-0">
+
+          <div class="card-header text-center py-4" style="background-color: #21708c;">
+
+            <h3 class="fw-bold text-white mb-0">
+              <%= titulo %>
+            </h3>
+
+          </div>
+
+
+          <div class="card-body p-4">
+
+            <form action="/proyectos/nuevo" method="POST" enctype="multipart/form-data">
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Título del proyecto
+                </label>
+
+                <input type="text" name="titulo" class="form-control" placeholder="Ingresá el nombre de tu proyecto" />
+
+              </div>
+
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Descripción
+                </label>
+
+                <textarea name="descripcion" class="form-control" rows="4" placeholder="Agregá una breve descripción de tu proyecto"></textarea>
+
+              </div>
+
+              <div class="mb-3">
+
+                <label for="categoria_id" class="form-label">
+                  Categoría
+                </label>
+
+                <select name="categoria_id" id="categoria_id" class="form-select">
+
+                  <option value="">
+                    Seleccioná la categoría de tu proyecto
+                  </option>
+
+                  <% categorias.forEach(categoria => { %>
+
+                  <option value="<%= categoria.id %>">
+                    <%= categoria.nombre %>
+                  </option>
+
+                  <% }) %>
+
+                </select>
+
+              </div>
+
+
+              <div class="mb-4">
+
+                <label for="escuela_id" class="form-label">
+                  Escuela
+                </label>
+
+                <select name="escuela_id" id="escuela_id" class="form-select">
+
+                  <option value="">
+                    Seleccioná la escuela a la que pertenecés
+                  </option>
+
+                  <% escuelas.forEach(esc => { %>
+
+                  <option value="<%= esc.id %>">
+                    <%= esc.padron %>
+                  </option>
+
+                  <% }) %>
+
+                </select>
+
+              </div>
+
+
+              <div class="mb-4">
+
+                <label class="form-label">
+                  Imágenes del proyecto
+                </label>
+
+                <input type="file" name="imagenes" class="form-control" accept="image/*" multiple />
+
+              </div>
+
+              <button type="submit" class="btn text-white w-100" style="background-color: #21708c;">
+                Enviá tu proyecto
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <%- include("../partials/footer.ejs") %>

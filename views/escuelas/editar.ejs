@@ -1,0 +1,224 @@
+<%- include("../partials/header.ejs") %>
+
+<body style="background-color: #f8fafb;">
+
+<%- include("../partials/navbar.ejs") %>
+
+<main 
+    class="d-flex align-items-center justify-content-center py-5"
+    style="min-height: calc(100vh - 90px);"
+>
+
+    <section class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div 
+                    class="p-4 p-lg-5"
+                    style="
+                        background-color: white;
+                        border-radius: 32px;
+                        box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+                    "
+                >
+
+                    <div class="text-center mb-5">
+
+                        <p 
+                            class="mb-2"
+                            style="
+                                color: #21708c;
+                                font-weight: 700;
+                                letter-spacing: 1px;
+                                text-transform: uppercase;
+                                font-size: 14px;
+                            "
+                        >
+                            Feria Provincial
+                        </p>
+
+                        <h1 
+                            class="fw-bold mb-3"
+                            style="
+                                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                            "
+                        >
+                            <%= titulo %>
+                        </h1>
+
+                        <p 
+                            class="mb-0"
+                            style="
+                                color: #5f6b73;
+                                font-size: 1.05rem;
+                            "
+                        >
+                            Actualizá los datos de la escuela seleccionada.
+                        </p>
+
+                    </div>
+
+                    <form 
+                        action="/escuelas/<%= escuela.id %>/editar" 
+                        method="POST" 
+                        enctype="multipart/form-data"
+                    >
+
+                        <div class="mb-4">
+
+                            <label 
+                                class="form-label fw-semibold mb-2"
+                                style="color: #33444c;"
+                            >
+                                Nombre de la escuela
+                            </label>
+
+                            <input 
+                                type="text" 
+                                name="nombre"
+                                class="form-control py-3"
+                                placeholder="Ingresá el nombre de tu escuela"
+                                value="<%= escuela.nombre %>"
+                                style="
+                                    border-radius: 14px;
+                                    border: 1px solid #d9e1e5;
+                                "
+                            >
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label 
+                                class="form-label fw-semibold mb-2"
+                                style="color: #33444c;"
+                            >
+                                Número de padrón
+                            </label>
+
+                            <input 
+                                type="number" 
+                                name="padron"
+                                class="form-control py-3"
+                                placeholder="Ingresá el número de padrón"
+                                value="<%= escuela.padron %>"
+                                style="
+                                    border-radius: 14px;
+                                    border: 1px solid #d9e1e5;
+                                "
+                            >
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label 
+                                for="region_id"
+                                class="form-label fw-semibold mb-2"
+                                style="color: #33444c;"
+                            >
+                                Región
+                            </label>
+
+                            <select 
+                                name="region_id" 
+                                id="region_id"
+                                class="form-select py-3"
+                                style="
+                                    border-radius: 14px;
+                                    border: 1px solid #d9e1e5;
+                                "
+                            >
+
+                                <option value="">
+                                    Seleccioná una región
+                                </option>
+
+                                <% regiones.forEach(region => { %>
+
+                                    <option 
+                                        value="<%= region.id %>"
+                                        <%= escuela.region_id == region.id ? "selected" : "" %>
+                                    >
+                                        <%= region.nombre %>
+                                    </option>
+
+                                <% }) %>
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label 
+                                class="form-label fw-semibold mb-2"
+                                style="color: #33444c;"
+                            >
+                                Localidad
+                            </label>
+
+                            <input 
+                                type="text" 
+                                name="localidad"
+                                class="form-control py-3"
+                                placeholder="Ingresá la localidad"
+                                value="<%= escuela.localidad %>"
+                                style="
+                                    border-radius: 14px;
+                                    border: 1px solid #d9e1e5;
+                                "
+                            >
+
+                        </div>
+
+                        <div class="mb-5">
+
+                            <label 
+                                class="form-label fw-semibold mb-2"
+                                style="color: #33444c;"
+                            >
+                                Actualizar logo
+                            </label>
+
+                            <input 
+                                type="file" 
+                                name="logo"
+                                class="form-control py-3"
+                                accept="image/*"
+                                style="
+                                    border-radius: 14px;
+                                    border: 1px solid #d9e1e5;
+                                "
+                            >
+
+                        </div>
+
+                        <button 
+                            type="submit"
+                            class="btn w-100 py-3"
+                            style="
+                                background-color: #21708c;
+                                color: white;
+                                font-weight: 700;
+                                border-radius: 14px;
+                                font-size: 1rem;
+                            "
+                        >
+                            Guardar cambios
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+<%- include("../partials/footer.ejs") %>

@@ -1,0 +1,134 @@
+<%- include("../partials/header.ejs") %>
+
+
+<body style="
+  background-color: #f8fafb;
+  min-height: 100vh;
+">
+  <%- include("../partials/navbar.ejs") %>
+
+
+  <main class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <section class="w-100" style="
+        max-width: 520px;
+        background-color: white;
+        border-radius: 32px;
+        padding: 3rem;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      ">
+
+      <div class="text-center mb-5">
+
+        <p style="
+          color: #21708c;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          font-size: 14px;
+        ">
+          Feria Provincial
+        </p>
+
+        <h1 class="fw-bold mb-3" style="
+          font-size: clamp(2.2rem, 5vw, 3rem);
+          color: #1f2d33;
+        ">
+          Crear cuenta
+        </h1>
+
+        <p style="
+          color: #5f6b73;
+          line-height: 1.7;
+        ">
+          Registrate para participar y administrar proyectos escolares.
+        </p>
+
+      </div>
+
+     
+
+      <form action="/registro" method="POST">
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold mb-2">
+            Nombre
+          </label>
+
+          <input type="text" name="nombre" placeholder="Ingresá tu nombre" class="form-control <%= errors.find(e => e.path === "nombre" ) ? "is-invalid" : "" %>" style="
+              height: 55px;
+              border-radius: 16px;
+              border: 1px solid #d8e1e6;" value="<%= datos.nombre || "" %>">
+
+          <% const errorNombre = errors.find(e => e.path === "nombre") %>
+
+          <% if (errorNombre) { %>
+          <div class="invalid-feedback">
+            <%= errorNombre.msg %>
+          </div>
+          <% } %>
+
+        </div>
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold mb-2">
+            Email
+          </label>
+
+          <input type="email" name="email" placeholder="Ingresá tu email" class="form-control <%= errors.find(e => e.path === "email" ) ? "is-invalid" : "" %>" style="
+              height: 55px;
+              border-radius: 16px;
+              border: 1px solid #d8e1e6;
+            " value="<%= datos.email || "" %>">
+
+          <% const errorEmail = errors.find(e => e.path === "email") %>
+
+          <% if (errorEmail) { %>
+          <div class="invalid-feedback">
+            <%= errorEmail.msg %>
+          </div>
+          <% } %>
+
+        </div>
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold mb-2">
+            Contraseña
+          </label>
+
+          <input type="password" name="password" placeholder="Ingresá tu contraseña" class="form-control <%= errors.find(e => e.path === "password" ) ? "is-invalid" : "" %>"  style="
+              height: 55px;
+              border-radius: 16px;
+              border: 1px solid #d8e1e6;
+            ">
+
+            <% const errorContrasenia = errors.find(e=>e.path === "password") %>
+            <% if (errorContrasenia) { %>
+              <div class="invalid-feedback">
+                <%= errorContrasenia.msg %>
+              </div>
+              <% } %>
+
+        </div>
+
+        <button type="submit" class="btn w-100" style="
+            background-color: #21708c;
+            color: white;
+            height: 58px;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 1rem;
+          ">
+          Registrarme
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <%- include("../partials/footer.ejs") %>

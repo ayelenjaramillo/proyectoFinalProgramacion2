@@ -1,0 +1,106 @@
+<%- include("../partials/header.ejs") %>
+
+<body style="background-color: #f8fafb;">
+  <%- include("../partials/navbar.ejs") %>
+<main class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 90px);">
+  <div class="container py-5">
+    <section class="p-4 p-lg-5 mb-5" style="background-color: white;border-radius: 28px;box-shadow: 0 12px 30px rgba(0,0,0,0.06); ">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center gap-4 flex-wrap">
+            <% if (escuela.logo) { %>
+            <img src="/img/escuelas/<%= escuela.logo %>" alt="Logo escuela" class="rounded-circle object-fit-cover" width="130" height="130" style="border: 4px solid #e7eef1; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.06);">
+            <% } else { %>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style=" width:130px; height:130px;background-color:#eef5f7;border: 4px solid #e7eef1;            color:#5f6b73;
+                                font-weight:700; ">
+              Sin logo
+            </div>
+            <% } %>
+            <div>
+              <p class="mb-2" style="color: #21708c;font-weight: 700;letter-spacing: 1px;text-transform: uppercase;font-size: 14px; ">
+                Escuela participante
+              </p>
+              <h1 class="fw-bold mb-4" style="font-size: 48px;line-height: 1.1;">
+                <%= escuela.nombre %>
+              </h1>
+              <%= escuela.nombre %>
+              </h1>
+              <div class="d-flex flex-wrap gap-3">
+                <div class="px-4 py-3 rounded-4" style="background-color: #eef5f7; ">
+                  <p class="mb-0">
+                    <strong>Padrón:</strong>
+                    <%= escuela.padron %>
+                  </p>
+                </div>
+                <div class="px-4 py-3 rounded-4" style="background-color: #eef5f7; ">
+                  <p class="mb-0">
+                    <strong>Región:</strong>
+                    <%= escuela.region.nombre %>
+                  </p>
+                </div>
+                <div class="px-4 py-3 rounded-4" style="background-color: #eef5f7;">
+                  <p class="mb-0">
+                    <strong>Localidad:</strong>
+                    <%= escuela.localidad %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <% if (usuarioLogueado && usuarioLogueado.rol === "admin") { %>
+     <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+
+      <a href="/escuelas/<%= escuela.id %>/editar" class="btn px-4 py-3" style="background-color: #21708c; color: white; font-weight: 700;border-radius: 14px; ">
+        Editar escuela
+      </a>
+      <form action="/escuelas/<%= escuela.id %>/eliminar" method="POST">
+        <button type="submit" class="btn px-4 py-3" style="border: 2px solid #dc3545;color: #dc3545;font-weight: 700;border-radius: 14px;background-color: white; ">
+          Eliminar escuela </button>
+      </form>
+    </div>
+    <% } %>
+    
+    <section>
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="fw-bold mb-0" style="color: #1d2a30;font-size: 1.8rem;">
+          Proyectos de la escuela
+        </h3>
+        <span class="px-3 py-2 rounded-pill" style="
+                background-color: #21708c15;
+                color: #21708c;
+                font-weight: 700;
+                font-size: 14px;
+            ">
+          <%= escuela.proyectos.length %> proyectos
+        </span>
+      </div>
+      <% if (escuela.proyectos.length > 0) { %>
+      <div class="p-3 p-md-4" style="background-color: white; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+        <% escuela.proyectos.forEach(proyecto => { %>
+        <a href="/proyectos/<%= proyecto.id %>" class="d-flex align-items-center justify-content-between text-decoration-none py-4 px-3" style="
+                        border-bottom: 1px solid #edf1f3;">
+          <div>
+            <h5 class="mb-1 text-dark fw-bold" style="font-size: 1.1rem; ">
+              <%= proyecto.titulo %>
+            </h5>
+          </div>
+          <span class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px;height: 38px;background-color: #21708c15;color: #21708c;font-weight: 700; ">
+            →
+          </span>
+        </a>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <div class="text-center py-5 rounded-4" style="background-color: white;box-shadow: 0 10px 25px rgba(0,0,0,0.04);">
+        <p class="mb-0" style=" color: #6c757d;  font-size: 18px;">
+          Esta escuela todavía no tiene proyectos cargados.
+        </p>
+      </div>
+      <% } %>
+    </section>
+  </div>
+  </main>
+  <%- include("../partials/footer.ejs") %>

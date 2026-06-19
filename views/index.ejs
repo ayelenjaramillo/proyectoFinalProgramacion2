@@ -1,0 +1,126 @@
+<%- include("../views/partials/header.ejs") %>
+
+<body style="background-color: #f8fafb; min-height: 100vh;">
+  <%- include("../views/partials/navbar.ejs") %>
+  <main class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 90px);">
+
+    <section class="container py-5">
+      <div class="row align-items-center g-5 py-5 px-3 px-lg-5 mt-5" style="background-color: white;border-radius: 32px;box-shadow: 0 12px 30px rgba(0,0,0,0.06);">
+        <div class="col-lg-6">
+          <p class="mb-3" style=" color: #21708c; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 14px; ">
+            Feria Provincial de Proyectos
+          </p>
+          <h1 class="fw-bold mb-4" style="font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; ">
+            <%= titulo %>
+          </h1>
+          <p class="mb-5" style="font-size: 1.15rem; line-height: 1.8; color: #5f6b73; max-width: 600px; ">
+            Descubrí proyectos escolares de toda la provincia,
+            explorá ideas innovadoras y conocé el trabajo realizado
+            por estudiantes y escuelas participantes.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="/escuelas" class="btn px-4 py-3" style="background-color: #21708c; color: white;font-weight: 700;border-radius: 14px; ">
+              Ver escuelas
+            </a>
+            <a href="/proyectos" class="btn px-4 py-3" style=" border: 2px solid #21708c;color: #21708c;font-weight: 700;border-radius: 14px; ">
+              Explorar proyectos
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="position-relative">
+            <div style=" position: absolute; width: 90%; height: 90%; background-color: #21708c15; border-radius: 30px; top: 25px; left: 25px;z-index: 0;"></div>
+            <img src="./home.jpg" alt="Proyecto escolar" class="img-fluid position-relative" style=" border-radius: 28px;object-fit: cover; z-index: 1;box-shadow: 0 15px 35px rgba(0,0,0,0.08); ">
+          </div>
+        </div>
+      </div>
+      <section class="container pb-5 mt-5" >
+
+        <div class="text-center mb-5 mt-5">
+
+
+          <h5 class="fw-bold mt-5" style="
+            font-size: clamp(2.2rem, 4vw, 3rem);margin-top: 30px;
+          ">
+            Explorá los proyectos a traves de las categorías
+          </h5>
+
+          <p class="mt-3" style="
+            color: #5f6b73;
+            font-size: 1.05rem;
+          ">
+            Descubrí proyectos organizados según su temática.
+          </p>
+
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+          <% categorias.slice(0,4).forEach(categ => { %>
+
+          <div class="col-6 col-md-4 col-lg-2">
+
+            <a href="/categorias/categoria/<%= categ.id %>" class="text-decoration-none">
+
+              <div class="d-flex flex-column align-items-center justify-content-center h-100" style="
+                  min-height: 70px;
+                  background-color: white;
+                  border-radius: 28px;
+                  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+                  transition: 0.2s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+
+          
+
+                <p class="mb-0 text-center" style="
+                    color: #263238;
+                    font-weight: 700;
+                    font-size: 1rem;
+                  ">
+                  <%= categ.nombre %>
+                </p>
+
+              </div>
+
+            </a>
+
+          </div>
+
+          <% }) %>
+
+          <div class="col-6 col-md-4 col-lg-2">
+
+            <a href="/categorias" class="text-decoration-none">
+
+              <div class="d-flex flex-column align-items-center justify-content-center h-100" style="
+                min-height: 170px;
+                background-color: white;
+                border-radius: 28px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+                transition: 0.2s ease;
+              " onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+
+            
+
+                <p class="mb-0 text-center" style="
+                  color: #263238;
+                  font-weight: 700;
+                  font-size: 1rem;
+                ">
+                  Ver todas
+                </p>
+
+              </div>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+    </section>
+  </main>
+
+
+  <%- include("../views/partials/footer.ejs") %>

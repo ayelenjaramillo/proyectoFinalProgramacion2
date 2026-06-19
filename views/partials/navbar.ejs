@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" href="/" style="color: #21708c;">
+      Feria Provincial
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContenido">
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/">
+            Inicio
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/escuelas">
+            Escuelas
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/proyectos">
+            Proyectos
+          </a>
+        </li>
+
+        <% if ( usuarioLogueado && usuarioLogueado.rol === "admin") { %>
+       <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/admin"> Panel Admin</a>
+        </li>   
+        <% } %>
+        <% if ( usuarioLogueado && usuarioLogueado.rol === "profesor") { %>
+          <li class="nav-item">
+             <a class="nav-link fw-semibold" href="/proyectos/misproyectos"> Mis proyectos </a>
+           </li>   
+           <% } %>
+
+       
+
+      </ul>
+
+      <% if (usuarioLogueado) { %>
+      <div class="d-flex align-items-center gap-3">
+        <span class="fw-semibold">
+          Hola, <%= usuarioLogueado.nombre %>
+        </span>
+        <form action="/logout" method="POST" class="mb-0">
+          <button type="submit" class="btn btn-outline-danger px-4 py-2 fw-semibold">Salir</button>
+        </form>
+      </div>
+      <% } else { %>
+
+      <a href="/login" class="btn px-4 py-2" style="
+            background-color: #21708c;
+            color: white;
+            font-weight: 700;
+            border-radius: 12px;
+          ">
+        Iniciar sesión
+      </a>
+      <%  }  %>
+
+    </div>
+
+  </div>
+</nav>
