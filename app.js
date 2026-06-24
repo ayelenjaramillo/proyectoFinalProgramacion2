@@ -5,7 +5,7 @@ const db = require("./database/models");
 
 const express = require("express");
 // const cors = require("cors")
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const setSessionLocals = require("./middlewares/sessionLocals")
 //guardamos express
 const app = express();
@@ -32,10 +32,10 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(
-  session({
+  cookieSession({
+    name: "session",
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    maxAge: 24 * 60 * 60 * 1000
   })
 );
 
