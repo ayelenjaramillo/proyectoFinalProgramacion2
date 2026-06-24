@@ -13,7 +13,11 @@ module.exports = {
     logging: false
   },
   production: {
-    use_env_variable: 'DATABASE_URL',
+    username: process.env.PROD_DB_USER,
+    password: process.env.PROD_DB_PASS,
+    database: process.env.PROD_DB_NAME,
+    host: process.env.PROD_DB_HOST,
+    port: process.env.PROD_DB_PORT,
     dialect: 'mysql',
     dialectModule: mysql2,
     logging: false,
@@ -24,6 +28,5 @@ module.exports = {
     }
   }
 };
-
 
 //Applications/MAMP/Library/bin/mysql57/bin/mysql
