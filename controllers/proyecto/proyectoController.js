@@ -5,6 +5,8 @@ const {
   ProyectoImagen,
 } = require("../../database/models");
 
+const cloudinary = require("../../config/cloudinary");
+
 const proyectoController = {
   todos: async (req, res) => {
     try {
@@ -70,7 +72,8 @@ const proyectoController = {
 
       if (req.files && req.files.length > 0) {
         const imagenes = req.files.map((f) => ({
-          filename: f.filename,
+          filename: f.path,
+          public_id: f.filename,
           proyecto_id: proyecto.id,
         }));
         await ProyectoImagen.bulkCreate(imagenes);
@@ -128,7 +131,8 @@ const proyectoController = {
 
       if (req.files && req.files.length > 0) {
         const imagenes = req.files.map((imagen) => ({
-          filename: imagen.filename,
+          filename: imagen.path,
+          public_id: f.filename,
           proyecto_id: proyecto.id,
         }));
         await ProyectoImagen.bulkCreate(imagenes);
@@ -154,8 +158,6 @@ const proyectoController = {
   },
   eliminarImagen: async (req, res) => {
     const { proyectoId, imagenId } = req.params;
-    const path = require("path");
-    const fs = require("fs");
 
     try {
       const imagen = await ProyectoImagen.findByPk(imagenId);
@@ -163,14 +165,8 @@ const proyectoController = {
         return res.redirect(`/proyectos/${proyectoId}/editar`);
       }
 
-      const filePath = path.join(
-        __dirname,
-        "../../public/img/proyectos",
-        imagen.filename
-      );
-
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
+      if (imagen.public_id) {
+        await cloudinary.uploader.destroy(imagen.public_id);
       }
 
       await imagen.destroy();

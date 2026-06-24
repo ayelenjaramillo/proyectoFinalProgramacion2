@@ -15,10 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      public_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       proyecto_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      },
+      }
     },
 
     {

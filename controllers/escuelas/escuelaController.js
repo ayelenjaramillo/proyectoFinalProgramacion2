@@ -45,7 +45,7 @@ const escuelaController = {
   },
   crearEscuela: async (req, res) => {
     const { nombre, padron, region_id, localidad } = req.body;
-    const logo =    req.file ? req.file.filename : null; 
+    const logo =    req.file ? req.file.path : null; 
 
     try {
       await Escuela.create({
@@ -87,7 +87,7 @@ const escuelaController = {
     const escuela = await Escuela.findByPk(id);
     try {
       const { nombre, padron, region_id, localidad } = req.body;
-      const logo = req.file ? req.file.filename : escuela.logo;
+      const logo = req.file ? req.file.path : escuela.logo;
 
       const nuevosDatos = {
         nombre,

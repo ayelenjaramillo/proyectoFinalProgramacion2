@@ -65,3 +65,6 @@ db.sequelize
   .catch((error) => {
     console.error("error de conexion a Mysql:", error.message);
   });
+
+
+  module.exports = app;

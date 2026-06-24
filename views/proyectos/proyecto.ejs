@@ -64,7 +64,7 @@
 
           <% if (proyecto.imagenes && proyecto.imagenes.length > 0) { %>
 
-          <img src="/img/proyectos/<%= proyecto.imagenes[0].filename %>" alt="Proyecto" class="img-fluid w-100" style="
+          <img src="<%= proyecto.imagenes[0].filename %>" alt="Proyecto" class="img-fluid w-100" style="
                             border-radius: 28px;
                             object-fit: cover;
                             max-height: 450px;
@@ -102,7 +102,7 @@
 
         <div class="col-md-6 col-lg-4">
 
-          <img src="/img/proyectos/<%= imagen.filename %>" alt="Proyecto" class="img-fluid w-100" style="
+          <img src="<%= imagen.filename %>" alt="Proyecto" class="img-fluid w-100" style="
                         border-radius: 22px;
                         height: 250px;
                         object-fit: cover;
