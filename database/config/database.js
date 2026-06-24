@@ -16,6 +16,7 @@ module.exports={
     host: process.env.PROD_DB_HOST,
     port: process.env.PROD_DB_PORT,
     dialect: "mysql", 
+    dialectModule: mysql2,
     logging: false, 
     dialectOptions:{
       ssl:{
