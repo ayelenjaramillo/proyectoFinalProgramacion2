@@ -1,4 +1,7 @@
+const mysql2 = require('mysql2');
+
 require("dotenv").config();
+
 module.exports={
   development: {
     username: process.env.DB_USER,
