@@ -93,12 +93,16 @@ const authController = {
       res.redirect("/login");
     }
   },
-
   logout: (req, res) => {
-    req.session.destroy(() => {
-      res.redirect("/");
-    });
+    req.session = null;
+    res.redirect("/");
   },
+
+  // logout: (req, res) => {
+  //   req.session.destroy(() => {
+  //     res.redirect("/");
+  //   });
+  // },
 };
 
 module.exports = authController;
